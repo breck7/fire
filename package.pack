@@ -1,0 +1,10 @@
+name fire
+version 1.0.0
+description A Tree Language that compiles to Javascript for research and testing use.
+main index.js
+repository
+ type git
+ url github.com/breck7/fire
+keywords fire
+author Breck Yunits
+license MIT

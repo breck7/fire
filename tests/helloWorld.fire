@@ -1,0 +1,2 @@
+#! /usr/local/bin/node --use_strict /usr/local/bin/tree
+log$ hello world

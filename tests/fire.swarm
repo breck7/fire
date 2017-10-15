@@ -1,0 +1,195 @@
+#! /usr/local/bin/node --use_strict /usr/local/bin/tree
+#setup
+ require ../index.js
+#test helloWorld
+ #setup
+  %%|
+   log$ hello world
+ compile
+  =|
+   console.log("hello world")
+ getDefinition
+  getAutocompleteWords req
+   =# 1
+  getAutocompleteWords log
+   =# 2
+#test block
+ #setup
+  %%|
+   block
+    log$ hi
+ compile
+#test grammar
+ getGrammarProgram
+  =~ object
+#test type errors
+ #setup
+  %%|
+   set? someBoolean true
+ getProgramErrors
+  =# 0
+ getWordTypeAtPosition 1 3
+  == boolean
+ getWordTypeAtPosition 1 2
+  == identifier
+#test getWordTypeAtPosition while editing
+ #setup
+  %%|
+   if
+    foobar someBoolean true
+ getWordTypeAtPosition 2 3
+  == error
+#test type errors
+ #setup
+  %%|
+   set# num true
+ getProgramErrors
+  =# 1
+#test type errors
+ #setup
+  %%|
+   log$ hello world
+ getProgramErrors
+  =# 0
+#test type errors
+ #setup
+  %%|
+   set? someBoolean 2
+ getProgramErrors
+  =# 1
+#test addition
+ #setup
+  %%|
+   set# num1 5
+   set# num2 10
+   set#+ sum num1 num2
+   log@ sum
+ compile
+  =|
+   const num1 = 5
+   const num2 = 10
+   const sum = [num1, num2].reduce((sum, num) => sum + num)
+   console.log(sum)
+ execute
+#test math
+ #setup
+  %%|
+   set# num1 5
+   set# num2 10
+   set#+ sum num1 num2
+   set# seven 7
+   set#- sub sum seven 2 23
+ compile
+  =|
+   const num1 = 5
+   const num2 = 10
+   const sum = [num1, num2].reduce((sum, num) => sum + num)
+   const seven = 7
+   const sub = sum - seven - 2 - 23
+#test node
+ #setup
+  %%|
+   require TreeProgram treeprogram
+   setfn add1 num
+    set#+ sum 1 num
+    return sum
+   export add1
+ compile
+  =|
+   const TreeProgram = require("treeprogram")
+   const add1 = (num) => {
+    const sum = [1, num].reduce((sum, num) => sum + num)
+    return sum
+   }
+   module.exports = add1
+#test if
+ #setup
+  %%|
+   set# one 1
+   set# zero 0
+   if one
+    set$ str this line should print
+    log@ str
+   if zero
+    set$ str this line should not print
+    log@ str
+ compile
+  =|
+   const one = 1
+   const zero = 0
+   if (one) {
+    const str = "this line should print"
+    console.log(str)
+   }
+   if (zero) {
+    const str = "this line should not print"
+    console.log(str)
+   }
+#test array
+ #setup
+  %%|
+   set#[] scores 2 4 8 10
+   setfn divideByTwo num
+    set#/ result num 2
+    return result
+   set.>> halfs scores map divideByTwo
+   log@ halfs
+ compile
+  =|
+   const scores = [2, 4, 8, 10]
+   const divideByTwo = (num) => {
+    const result = num / 2
+    return result
+   }
+   const halfs = scores.map(divideByTwo)
+   console.log(halfs)
+#test while
+ #setup
+  %%|
+   set#~ num 10
+   while num
+    log@ num
+    -- num
+ compile
+  =|
+   let num = 10
+   while (num) {
+    console.log(num)
+    num--
+   }
+#test bad
+ #setup
+  %%|
+   @wall
+    layout tree
+    
+   bad node
+    wham
+ compile
+  =|
+   // error
+   // error
+#test fn
+ #setup
+  %%|
+   setfn abbreviate stringOne stringTwo
+    set.>> a1 stringOne substr 0 1
+    set.>> a2 stringTwo substr 0 1
+    join joined a1 a2
+    return joined
+   set$ wordOne lab
+   set$ wordTwo zero
+   set*>> abbreviation abbreviate wordOne wordTwo
+   log@ abbreviation
+ compile
+  =|
+   const abbreviate = (stringOne, stringTwo) => {
+    const a1 = stringOne.substr(0, 1)
+    const a2 = stringTwo.substr(0, 1)
+    const joined = [a1, a2].join("")
+    return joined
+   }
+   const wordOne = "lab"
+   const wordTwo = "zero"
+   const abbreviation = abbreviate(wordOne, wordTwo)
+   console.log(abbreviation)
