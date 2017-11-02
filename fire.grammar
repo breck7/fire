@@ -1,16 +1,18 @@
 fire
- @targetExtension js
+ @compiler js
  @keywords
   #!
   term
   nt
  @catchAllKeyword error
 #!
- @parameters any*
- @compiled // #! {any*}
+ @columns any*
+ @compiler js
+  @sub // #! {any*}
 error
  @parseClass ErrorNode
- @compiled // error
+ @compiler js
+  @sub // error
 nt
  @keywords
   term
@@ -24,170 +26,201 @@ assignment term
  @ohayoTileClass MorphTile /aientist/client/tiles/MorphTile.js
 log@ term
  @description Log variable(s) to console
- @parameters identifier*
- @compiled console.log({identifier*})
+ @columns identifier*
+ @compiler js
+  @sub console.log({identifier*})
+  @listDelimiter , 
  @frequency .5
  @ohayoSvg printer
- @listDelimiter , 
 log$ term
  @description Log string to console
- @parameters any*
- @compiled console.log("{any*}")
+ @columns any*
+ @compiler js
+  @sub console.log("{any*}")
  @frequency .51
  @ohayoSvg printer
 require term
  @description Require Something
  @ohayoSvg import
- @parameters identifier filepath
- @compiled const {identifier} = require("{filepath}")
+ @columns identifier filepath
+ @compiler js
+  @sub const {identifier} = require("{filepath}")
  @frequency .1
 export term
  @description Export This
  @ohayoSvg export
- @parameters identifier
- @compiled module.exports = {identifier}
+ @columns identifier
+ @compiler js
+  @sub module.exports = {identifier}
  @frequency .1
 set# assignment
  @description Number Assignment
- @parameters identifier number
- @compiled const {identifier} = {number}
+ @columns identifier number
+ @compiler js
+  @sub const {identifier} = {number}
  @frequency .3
  @ohayoSvg hashtag
 set? assignment
  @description Boolean Assignment
- @parameters identifier boolean
- @compiled const {identifier} = {boolean}
+ @columns identifier boolean
+ @compiler js
+  @sub const {identifier} = {boolean}
  @frequency .04
  @ohayoSvg hashtag
 set$ assignment
  @description String Assignment
- @parameters identifier any*
- @compiled const {identifier} = "{any*}"
+ @columns identifier any*
+ @compiler js
+  @sub const {identifier} = "{any*}"
  @frequency .2
  @ohayoSvg font-1
 join assignment
  @description Join strings to form new string
- @parameters identifier identifier*
- @listDelimiter , 
- @compiled const {identifier} = [{identifier*}].join("")
+ @columns identifier identifier*
+ @compiler js
+  @sub const {identifier} = [{identifier*}].join("")
+  @listDelimiter , 
  @frequency .2
  @ohayoSvg font-1
 set#+ assignment
  @description Add Numbers
- @parameters identifier any*
- @listDelimiter , 
- @compiled const {identifier} = [{any*}].reduce((sum, num) => sum + num)
+ @columns identifier any*
+ @compiler js
+  @sub const {identifier} = [{any*}].reduce((sum, num) => sum + num)
+  @listDelimiter , 
  @frequency .1
  @ohayoSvg add
 set?< set?
  @description Less than test
- @parameters identifier any any
- @compiled const {identifier} = {any} < {any}
+ @columns identifier any any
+ @compiler js
+  @sub const {identifier} = {any} < {any}
  @frequency .1
  @ohayoSvg lt
 set?<= set?
  @description Less than or equal to test
- @parameters identifier any any
- @compiled const {identifier} = {any} <= {any}
+ @columns identifier any any
+ @compiler js
+  @sub const {identifier} = {any} <= {any}
  @frequency .1
  @ohayoSvg lt-eq
 set?> set?
  @description Greater than test
- @parameters identifier number number
- @compiled const {identifier} = {number} > {number}
+ @columns identifier number number
+ @compiler js
+  @sub const {identifier} = {number} > {number}
  @frequency .1
 set?>= set?
  @description Greater than or equal to test
- @parameters identifier number number
- @compiled const {identifier} = {number} >= {number}
+ @columns identifier number number
+ @compiler js
+  @sub const {identifier} = {number} >= {number}
  @frequency .1
 set## assignment
- @parameters identifier any*
- @compiled const {identifier} = {any*}
+ @columns identifier any*
+ @compiler js
+  @sub const {identifier} = {any*}
  @frequency .2
  @ohayoSvg hashtag
 set#- set##
  @description Subtract Numbers
- @listDelimiter  - 
+ @compiler js
+  @listDelimiter  - 
  @ohayoSvg minus
 set#/ set##
  @description Divide Numbers
- @listDelimiter  / 
+ @compiler js
+  @listDelimiter  / 
 set#% set##
  @description Modulo Numbers
- @listDelimiter %
+ @compiler js
+  @listDelimiter %
 set#* set##
  @description Multiply Numbers
- @listDelimiter  * 
+ @compiler js
+  @listDelimiter  * 
  @ohayoSvg multiply
 set#~ assignment
  @description Mutable Number Assignment
- @parameters identifier number
- @compiled let {identifier} = {number}
+ @columns identifier number
+ @compiler js
+  @sub let {identifier} = {number}
 -- term
  @description Decrement
- @parameters identifier
- @compiled {identifier}--
+ @columns identifier
+ @compiler js
+  @sub {identifier}--
  @frequency .1
 ++ term
  @description Increment
  @frequency .3
- @parameters identifier
- @compiled {identifier}++
+ @columns identifier
+ @compiler js
+  @sub {identifier}++
 set#[] assignment
  @description Number Array Assignment
- @parameters identifier number*
+ @columns identifier number*
  @frequency .4
- @compiled const {identifier} = [{number*}]
- @listDelimiter , 
+ @compiler js
+  @sub const {identifier} = [{number*}]
+  @listDelimiter , 
 set*>> assignment
  @description Function Call
  @frequency .5
  @ohayoSvg call
- @parameters identifier identifier any*
- @compiled const {identifier} = {identifier}({any*})
- @listDelimiter , 
+ @columns identifier identifier any*
+ @compiler js
+  @sub const {identifier} = {identifier}({any*})
+  @listDelimiter , 
 >> term
  @description Function call ignore result.
  @frequency .1
  @ohayoSvg call
- @parameters identifier any*
- @compiled {identifier}({any*})
- @listDelimiter , 
+ @columns identifier any*
+ @compiler js
+  @sub {identifier}({any*})
+  @listDelimiter , 
 set.>> assignment
  @description Method Call
  @frequency .5
- @parameters identifier identifier identifier any*
- @compiled const {identifier} = {identifier}.{identifier}({any*})
- @listDelimiter , 
+ @columns identifier identifier identifier any*
+ @compiler js
+  @sub const {identifier} = {identifier}.{identifier}({any*})
+  @listDelimiter , 
 return term
- @parameters any
- @compiled return {any}
+ @columns any
+ @compiler js
+  @sub return {any}
  @frequency .1
  @ohayoSvg nw
 jsblock nt
- @openChildren  {
- @closeChildren }
+ @compiler js
+  @openChildren  {
+  @closeChildren }
 setfn jsblock
  @description Function Assignment
- @parameters identifier any*
- @compiled const {identifier} = ({any*}) =>
+ @columns identifier any*
+ @compiler js
+  @sub const {identifier} = ({any*}) =>
+  @listDelimiter , 
  @frequency .1
  @ohayoSvg function
- @listDelimiter , 
 block jsblock
  @description block of code
  @ohayoSvg fork
  @frequency .2
- @compiled /* {identifier} */
+ @compiler js
+  @sub /* {identifier} */
 if jsblock
  @description If tile
  @ohayoSvg fork
- @parameters identifier
+ @columns identifier
  @frequency .2
- @compiled if ({identifier})
+ @compiler js
+  @sub if ({identifier})
 while jsblock
  @description While tile
- @parameters identifier
+ @columns identifier
  @frequency .1
- @compiled while ({identifier})
+ @compiler js
+  @sub while ({identifier})

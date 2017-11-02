@@ -12,7 +12,7 @@ class FireProgram extends TreeProgram {
     const _originalConsoleLog = console.log
     const tempConsoleLog = (...params) => outputLines.push(params)
     console.log = tempConsoleLog
-    eval(this.compile())
+    eval(this.compile("js"))
     console.log = _originalConsoleLog
     console.log(outputLines.join("\n"))
     return outputLines

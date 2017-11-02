@@ -5,7 +5,7 @@
  #setup
   %%|
    log$ hello world
- compile
+ compile js
   =|
    console.log("hello world")
  getDefinition
@@ -18,7 +18,7 @@
   %%|
    block
     log$ hi
- compile
+ compile js
 #test grammar
  getGrammarProgram
   =~ object
@@ -64,7 +64,7 @@
    set# num2 10
    set#+ sum num1 num2
    log@ sum
- compile
+ compile js
   =|
    const num1 = 5
    const num2 = 10
@@ -79,7 +79,7 @@
    set#+ sum num1 num2
    set# seven 7
    set#- sub sum seven 2 23
- compile
+ compile js
   =|
    const num1 = 5
    const num2 = 10
@@ -94,7 +94,7 @@
     set#+ sum 1 num
     return sum
    export add1
- compile
+ compile js
   =|
    const TreeProgram = require("treeprogram")
    const add1 = (num) => {
@@ -113,7 +113,7 @@
    if zero
     set$ str this line should not print
     log@ str
- compile
+ compile js
   =|
    const one = 1
    const zero = 0
@@ -134,7 +134,7 @@
     return result
    set.>> halfs scores map divideByTwo
    log@ halfs
- compile
+ compile js
   =|
    const scores = [2, 4, 8, 10]
    const divideByTwo = (num) => {
@@ -150,7 +150,7 @@
    while num
     log@ num
     -- num
- compile
+ compile js
   =|
    let num = 10
    while (num) {
@@ -165,7 +165,7 @@
     
    bad node
     wham
- compile
+ compile js
   =|
    // error
    // error
@@ -181,7 +181,7 @@
    set$ wordTwo zero
    set*>> abbreviation abbreviate wordOne wordTwo
    log@ abbreviation
- compile
+ compile js
   =|
    const abbreviate = (stringOne, stringTwo) => {
     const a1 = stringOne.substr(0, 1)
