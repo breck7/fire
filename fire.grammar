@@ -10,7 +10,7 @@ fire
  @compiler js
   @sub // #! {any*}
 error
- @parseClass ErrorNode
+ @parser js ErrorNode
  @compiler js
   @sub // error
 nt
