@@ -5,6 +5,7 @@ fire
   term
   nt
  @catchAllKeyword error
+ @parser js ./fireProgram.js
 #!
  @columns any*
  @compiler js
