@@ -1,4 +1,4 @@
-fire
+@grammar fire
  @compiler js
  @keywords
   #!
@@ -6,26 +6,26 @@ fire
   nt
  @catchAllKeyword error
  @parser js ./fireProgram.js
-#!
+@keyword #!
  @columns any*
  @compiler js
   @sub // #! {any*}
-error
+@keyword error
  @parser js ErrorNode
  @compiler js
   @sub // error
-nt
+@keyword nt
  @keywords
   term
   nt
  @ohayoTileSize 100 100
  @ohayoTileClass BasicTile /aientist/client/tiles/BasicTile.js
-term
-assignment term
->morph nt
+@keyword term
+@keyword assignment term
+@keyword >morph nt
  @ohayoTileSize 420 200
  @ohayoTileClass MorphTile /aientist/client/tiles/MorphTile.js
-log@ term
+@keyword log@ term
  @description Log variable(s) to console
  @columns identifier*
  @compiler js
@@ -33,49 +33,49 @@ log@ term
   @listDelimiter , 
  @frequency .5
  @ohayoSvg printer
-log$ term
+@keyword log$ term
  @description Log string to console
  @columns any*
  @compiler js
   @sub console.log("{any*}")
  @frequency .51
  @ohayoSvg printer
-require term
+@keyword require term
  @description Require Something
  @ohayoSvg import
  @columns identifier filepath
  @compiler js
   @sub const {identifier} = require("{filepath}")
  @frequency .1
-export term
+@keyword export term
  @description Export This
  @ohayoSvg export
  @columns identifier
  @compiler js
   @sub module.exports = {identifier}
  @frequency .1
-set# assignment
+@keyword set# assignment
  @description Number Assignment
  @columns identifier number
  @compiler js
   @sub const {identifier} = {number}
  @frequency .3
  @ohayoSvg hashtag
-set? assignment
+@keyword set? assignment
  @description Boolean Assignment
  @columns identifier boolean
  @compiler js
   @sub const {identifier} = {boolean}
  @frequency .04
  @ohayoSvg hashtag
-set$ assignment
+@keyword set$ assignment
  @description String Assignment
  @columns identifier any*
  @compiler js
   @sub const {identifier} = "{any*}"
  @frequency .2
  @ohayoSvg font-1
-join assignment
+@keyword join assignment
  @description Join strings to form new string
  @columns identifier identifier*
  @compiler js
@@ -83,7 +83,7 @@ join assignment
   @listDelimiter , 
  @frequency .2
  @ohayoSvg font-1
-set#+ assignment
+@keyword set#+ assignment
  @description Add Numbers
  @columns identifier any*
  @compiler js
@@ -91,81 +91,81 @@ set#+ assignment
   @listDelimiter , 
  @frequency .1
  @ohayoSvg add
-set?< set?
+@keyword set?< set?
  @description Less than test
  @columns identifier any any
  @compiler js
   @sub const {identifier} = {any} < {any}
  @frequency .1
  @ohayoSvg lt
-set?<= set?
+@keyword set?<= set?
  @description Less than or equal to test
  @columns identifier any any
  @compiler js
   @sub const {identifier} = {any} <= {any}
  @frequency .1
  @ohayoSvg lt-eq
-set?> set?
+@keyword set?> set?
  @description Greater than test
  @columns identifier number number
  @compiler js
   @sub const {identifier} = {number} > {number}
  @frequency .1
-set?>= set?
+@keyword set?>= set?
  @description Greater than or equal to test
  @columns identifier number number
  @compiler js
   @sub const {identifier} = {number} >= {number}
  @frequency .1
-set## assignment
+@keyword set## assignment
  @columns identifier any*
  @compiler js
   @sub const {identifier} = {any*}
  @frequency .2
  @ohayoSvg hashtag
-set#- set##
+@keyword set#- set##
  @description Subtract Numbers
  @compiler js
   @listDelimiter  - 
  @ohayoSvg minus
-set#/ set##
+@keyword set#/ set##
  @description Divide Numbers
  @compiler js
   @listDelimiter  / 
-set#% set##
+@keyword set#% set##
  @description Modulo Numbers
  @compiler js
   @listDelimiter %
-set#* set##
+@keyword set#* set##
  @description Multiply Numbers
  @compiler js
   @listDelimiter  * 
  @ohayoSvg multiply
-set#~ assignment
+@keyword set#~ assignment
  @description Mutable Number Assignment
  @columns identifier number
  @compiler js
   @sub let {identifier} = {number}
--- term
+@keyword -- term
  @description Decrement
  @columns identifier
  @compiler js
   @sub {identifier}--
  @frequency .1
-++ term
+@keyword ++ term
  @description Increment
  @frequency .3
  @columns identifier
  @compiler js
   @sub {identifier}++
-set#[] assignment
+@keyword set#[] assignment
  @description Number Array Assignment
  @columns identifier number*
  @frequency .4
  @compiler js
   @sub const {identifier} = [{number*}]
   @listDelimiter , 
-set*>> assignment
+@keyword set*>> assignment
  @description Function Call
  @frequency .5
  @ohayoSvg call
@@ -173,7 +173,7 @@ set*>> assignment
  @compiler js
   @sub const {identifier} = {identifier}({any*})
   @listDelimiter , 
->> term
+@keyword >> term
  @description Function call ignore result.
  @frequency .1
  @ohayoSvg call
@@ -181,24 +181,24 @@ set*>> assignment
  @compiler js
   @sub {identifier}({any*})
   @listDelimiter , 
-set.>> assignment
+@keyword set.>> assignment
  @description Method Call
  @frequency .5
  @columns identifier identifier identifier any*
  @compiler js
   @sub const {identifier} = {identifier}.{identifier}({any*})
   @listDelimiter , 
-return term
+@keyword return term
  @columns any
  @compiler js
   @sub return {any}
  @frequency .1
  @ohayoSvg nw
-jsblock nt
+@keyword jsblock nt
  @compiler js
   @openChildren  {
   @closeChildren }
-setfn jsblock
+@keyword setfn jsblock
  @description Function Assignment
  @columns identifier any*
  @compiler js
@@ -206,20 +206,20 @@ setfn jsblock
   @listDelimiter , 
  @frequency .1
  @ohayoSvg function
-block jsblock
+@keyword block jsblock
  @description block of code
  @ohayoSvg fork
  @frequency .2
  @compiler js
   @sub /* {identifier} */
-if jsblock
+@keyword if jsblock
  @description If tile
  @ohayoSvg fork
  @columns identifier
  @frequency .2
  @compiler js
   @sub if ({identifier})
-while jsblock
+@keyword while jsblock
  @description While tile
  @columns identifier
  @frequency .1
