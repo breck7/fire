@@ -6,6 +6,16 @@
   nt
  @catchAllKeyword error
  @parser js ./fireProgram.js
+@wordType number
+ @regex ^\-?[0-9]*\.?[0-9]*$
+@wordType identifier
+ @regex ^[$A-Za-z_][0-9a-zA-Z_$]*$
+@wordType any
+ @regex .?
+@wordType boolean
+ @regex ^(false|true)$
+@wordType filepath
+ @regex .?
 @keyword #!
  @columns any*
  @compiler js
@@ -18,13 +28,15 @@
  @keywords
   term
   nt
- @ohayoTileSize 100 100
- @ohayoTileClass BasicTile /aientist/client/tiles/BasicTile.js
+ @constants
+  tileSize string 100 100
+  tileClass BasicTile /aientist/client/tiles/BasicTile.js
 @keyword term
 @keyword assignment term
 @keyword >morph nt
- @ohayoTileSize 420 200
- @ohayoTileClass MorphTile /aientist/client/tiles/MorphTile.js
+ @constants
+  tileSize string 420 200
+  tileClass string MorphTile /aientist/client/tiles/MorphTile.js
 @keyword log@ term
  @description Log variable(s) to console
  @columns identifier*
@@ -32,24 +44,28 @@
   @sub console.log({identifier*})
   @listDelimiter , 
  @frequency .5
- @ohayoSvg printer
+ @constants
+  tileSvg string printer
 @keyword log$ term
  @description Log string to console
  @columns any*
  @compiler js
   @sub console.log("{any*}")
  @frequency .51
- @ohayoSvg printer
+ @constants
+  tileSvg string printer
 @keyword require term
  @description Require Something
- @ohayoSvg import
+ @constants
+  tileSvg string import
  @columns identifier filepath
  @compiler js
   @sub const {identifier} = require("{filepath}")
  @frequency .1
 @keyword export term
  @description Export This
- @ohayoSvg export
+ @constants
+  tileSvg string export
  @columns identifier
  @compiler js
   @sub module.exports = {identifier}
@@ -60,21 +76,24 @@
  @compiler js
   @sub const {identifier} = {number}
  @frequency .3
- @ohayoSvg hashtag
+ @constants
+  tileSvg string hashtag
 @keyword set? assignment
  @description Boolean Assignment
  @columns identifier boolean
  @compiler js
   @sub const {identifier} = {boolean}
  @frequency .04
- @ohayoSvg hashtag
+ @constants
+  tileSvg string hashtag
 @keyword set$ assignment
  @description String Assignment
  @columns identifier any*
  @compiler js
   @sub const {identifier} = "{any*}"
  @frequency .2
- @ohayoSvg font-1
+ @constants
+  tileSvg string font-1
 @keyword join assignment
  @description Join strings to form new string
  @columns identifier identifier*
@@ -82,7 +101,8 @@
   @sub const {identifier} = [{identifier*}].join("")
   @listDelimiter , 
  @frequency .2
- @ohayoSvg font-1
+ @constants
+  tileSvg string font-1
 @keyword set#+ assignment
  @description Add Numbers
  @columns identifier any*
@@ -90,21 +110,24 @@
   @sub const {identifier} = [{any*}].reduce((sum, num) => sum + num)
   @listDelimiter , 
  @frequency .1
- @ohayoSvg add
+ @constants
+  tileSvg string add
 @keyword set?< set?
  @description Less than test
  @columns identifier any any
  @compiler js
   @sub const {identifier} = {any} < {any}
  @frequency .1
- @ohayoSvg lt
+ @constants
+  tileSvg string lt
 @keyword set?<= set?
  @description Less than or equal to test
  @columns identifier any any
  @compiler js
   @sub const {identifier} = {any} <= {any}
  @frequency .1
- @ohayoSvg lt-eq
+ @constants
+  tileSvg string lt-eq
 @keyword set?> set?
  @description Greater than test
  @columns identifier number number
@@ -122,12 +145,14 @@
  @compiler js
   @sub const {identifier} = {any*}
  @frequency .2
- @ohayoSvg hashtag
+ @constants
+  tileSvg string hashtag
 @keyword set#- set##
  @description Subtract Numbers
  @compiler js
   @listDelimiter  - 
- @ohayoSvg minus
+ @constants
+  tileSvg string minus
 @keyword set#/ set##
  @description Divide Numbers
  @compiler js
@@ -140,7 +165,8 @@
  @description Multiply Numbers
  @compiler js
   @listDelimiter  * 
- @ohayoSvg multiply
+ @constants
+  tileSvg string multiply
 @keyword set#~ assignment
  @description Mutable Number Assignment
  @columns identifier number
@@ -168,7 +194,8 @@
 @keyword set*>> assignment
  @description Function Call
  @frequency .5
- @ohayoSvg call
+ @constants
+  tileSvg string call
  @columns identifier identifier any*
  @compiler js
   @sub const {identifier} = {identifier}({any*})
@@ -176,7 +203,8 @@
 @keyword >> term
  @description Function call ignore result.
  @frequency .1
- @ohayoSvg call
+ @constants
+  tileSvg string call
  @columns identifier any*
  @compiler js
   @sub {identifier}({any*})
@@ -193,7 +221,8 @@
  @compiler js
   @sub return {any}
  @frequency .1
- @ohayoSvg nw
+ @constants
+  tileSvg string nw
 @keyword jsblock nt
  @compiler js
   @openChildren  {
@@ -205,16 +234,19 @@
   @sub const {identifier} = ({any*}) =>
   @listDelimiter , 
  @frequency .1
- @ohayoSvg function
+ @constants
+  tileSvg string function
 @keyword block jsblock
  @description block of code
- @ohayoSvg fork
+ @constants
+  tileSvg string fork
  @frequency .2
  @compiler js
   @sub /* {identifier} */
 @keyword if jsblock
  @description If tile
- @ohayoSvg fork
+ @constants
+  tileSvg string fork
  @columns identifier
  @frequency .2
  @compiler js

@@ -1,1 +1,1 @@
-module.exports = require("otree").getParser(__dirname + "/fire.grammar")
+module.exports = require("jtree").getParser(__dirname + "/fire.grammar")

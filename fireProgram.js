@@ -1,6 +1,6 @@
-const otree = require("otree")
+const jtree = require("jtree")
 
-class FireProgram extends otree.program {
+class FireProgram extends jtree.program {
   async execute() {
     let outputLines = []
     const _originalConsoleLog = console.log

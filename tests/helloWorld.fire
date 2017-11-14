@@ -1,2 +1,2 @@
-#! /usr/local/bin/node --use_strict /usr/local/bin/otree
+#! /usr/local/bin/node --use_strict /usr/local/bin/jtree
 log$ hello world
